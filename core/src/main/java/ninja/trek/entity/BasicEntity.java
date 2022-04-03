@@ -1,6 +1,5 @@
 package ninja.trek.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -31,7 +30,8 @@ public class BasicEntity extends Entity{
     @Override
     public void onAdd(World world, float x, float y){
         body = world.createBody(bodyD);
-        body.createFixture(fixD).setUserData(this);
+        fix = body.createFixture(fixD);
+        fix.setUserData(this);
         body.setTransform(x, y, 0);
         position.set(body.getPosition());
     }
@@ -41,9 +41,9 @@ public class BasicEntity extends Entity{
 
     float timeTarget = MathUtils.random(2f);
     @Override
-    public void update(float delta, World world) {
-        super.update(delta, world);
-        Gdx.app.log("entity ", "update " + time);
+    public void update(float delta, World world, EntityEngine entityEngine) {
+        super.update(delta, world, entityEngine);
+        //Gdx.app.log("entity ", "update " + time);
 //        if (time > timeTarget ) markedForRemoval = true;
     }
 }

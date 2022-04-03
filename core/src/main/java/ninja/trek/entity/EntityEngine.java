@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 
+import ninja.trek.Level;
+
 public class EntityEngine {
     private final World world;
     public Array<Entity> entities = new Array<Entity>();
@@ -18,7 +20,7 @@ public class EntityEngine {
         Array.ArrayIterator<Entity> i = entities.iterator();
         while (i.hasNext()){
             Entity e = i.next();
-            e.update(delta, world);
+            e.update(delta, world, this);
             if (e.markedForRemoval){
                 i.remove();
                 e.onRemove(world);
@@ -46,9 +48,9 @@ public class EntityEngine {
         }
     }
 
-    public void renderFilled(float delta, ShapeRenderer shape) {
+    public void renderFilled(float delta, ShapeRenderer shape, Level level) {
         for (Entity e : entities){
-            e.renderFilled(delta, shape);
+            e.renderFilled(delta, shape, level);
         }
     }
 }
